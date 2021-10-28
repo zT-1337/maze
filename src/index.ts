@@ -2,6 +2,8 @@ import { Maze } from './maze/Maze'
 import terminal from 'terminal-kit'
 
 const term = terminal.terminal
+term.clear()
+
 const maze = new Maze(32, 16)
 maze.generateMazeWithRandomPrim()
 
