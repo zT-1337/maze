@@ -170,4 +170,32 @@ export class Maze {
 
     return true
   }
+
+  public toString (): string {
+    const renderWidth = this.width * 2 + 1
+    const renderHeigth = this.height * 2 + 1
+    const fields = new Array<string>(renderWidth * renderHeigth)
+
+    for (let i = 0; i < renderWidth * renderHeigth; ++i) {
+      fields[i] = '⬛'
+      if (i % renderWidth === renderWidth - 1) {
+        fields[i] += '\n'
+      }
+    }
+
+    for (let i = 0; i < this.width * this.height; ++i) {
+      const renderPosition = (Math.floor(i / this.width) * 2 + 1) * renderWidth + (i % this.width) * 2 + 1
+      fields[renderPosition] = this.cells[i].hasPlayer ? '🟥' : '⬜'
+
+      if (this.hasBottomNeighbour(i) && !this.cells[i].hasBottomWall) {
+        fields[renderPosition + renderWidth] = '⬜'
+      }
+
+      if (this.hasRightNeighbour(i) && !this.cells[i].hasRightWall) {
+        fields[renderPosition + 1] = '⬜'
+      }
+    }
+
+    return fields.join('')
+  }
 }
