@@ -18,7 +18,6 @@ export class Maze {
     }
 
     this.cells[this.playerPosition].hasPlayer = true
-    this.generateMazeWithRandomPrim()
   }
 
   public generateMazeWithRandomPrim (): void {
