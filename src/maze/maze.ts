@@ -131,44 +131,37 @@ export class Maze {
     return currentCell.position - this.width === neighbour.position
   }
 
-  public movePlayerLeft (): boolean {
-    if (this.cells[this.playerPosition].hasLeftWall) return false
+  public movePlayerLeft (): [boolean, number, number] {
+    if (this.cells[this.playerPosition].hasLeftWall) return [false, -1, -1]
 
-    this.cells[this.playerPosition].hasPlayer = false
-    this.cells[this.playerPosition - 1].hasPlayer = true
-    this.playerPosition -= 1
-
-    return true
+    return this.movePlayer(this.playerPosition - 1)
   }
 
-  public movePlayerRight (): boolean {
-    if (this.cells[this.playerPosition].hasRightWall) return false
+  public movePlayerRight (): [boolean, number, number] {
+    if (this.cells[this.playerPosition].hasRightWall) return [false, -1, -1]
 
-    this.cells[this.playerPosition].hasPlayer = false
-    this.cells[this.playerPosition + 1].hasPlayer = true
-    this.playerPosition += 1
-
-    return true
+    return this.movePlayer(this.playerPosition + 1)
   }
 
-  public movePlayerUp (): boolean {
-    if (this.cells[this.playerPosition].hasTopWall) return false
+  public movePlayerUp (): [boolean, number, number] {
+    if (this.cells[this.playerPosition].hasTopWall) return [false, -1, -1]
 
-    this.cells[this.playerPosition].hasPlayer = false
-    this.cells[this.playerPosition - this.width].hasPlayer = true
-    this.playerPosition -= this.width
-
-    return true
+    return this.movePlayer(this.playerPosition - this.width)
   }
 
-  public movePlayerDown (): boolean {
-    if (this.cells[this.playerPosition].hasBottomWall) return false
+  public movePlayerDown (): [boolean, number, number] {
+    if (this.cells[this.playerPosition].hasBottomWall) return [false, -1, -1]
 
-    this.cells[this.playerPosition].hasPlayer = false
-    this.cells[this.playerPosition + this.width].hasPlayer = true
-    this.playerPosition += this.width
+    return this.movePlayer(this.playerPosition + this.width)
+  }
 
-    return true
+  private movePlayer (newPosition: number): [boolean, number, number] {
+    const oldPosition = this.playerPosition
+    this.playerPosition = newPosition
+    this.cells[oldPosition].hasPlayer = false
+    this.cells[this.playerPosition].hasPlayer = true
+
+    return [true, oldPosition, this.playerPosition]
   }
 
   public toString (): string {

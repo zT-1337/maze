@@ -16,25 +16,25 @@ function setupInput (maze: Maze, term: terminal.Terminal) {
         process.exit(0)
       }
       case 'UP': {
-        if (maze.movePlayerUp()) {
+        if (maze.movePlayerUp()[0]) {
           renderMaze(maze, term)
         }
         break
       }
       case 'DOWN': {
-        if (maze.movePlayerDown()) {
+        if (maze.movePlayerDown()[0]) {
           renderMaze(maze, term)
         }
         break
       }
       case 'LEFT': {
-        if (maze.movePlayerLeft()) {
+        if (maze.movePlayerLeft()[0]) {
           renderMaze(maze, term)
         }
         break
       }
       case 'RIGHT': {
-        if (maze.movePlayerRight()) {
+        if (maze.movePlayerRight()[0]) {
           renderMaze(maze, term)
         }
         break
