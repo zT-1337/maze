@@ -7,6 +7,7 @@
     "lint": "eslint --ext .ts --fix src/"
   },
   "devDependencies": {
+    "@types/jquery": "^3.5.8",
     "@typescript-eslint/eslint-plugin": "^5.2.0",
     "@typescript-eslint/parser": "^5.2.0",
     "electron": "^15.3.0",
@@ -23,6 +24,7 @@
   "dependencies": {
     "@types/node": "^16.11.6",
     "@types/terminal-kit": "^1.28.4",
+    "jquery": "^3.6.0",
     "terminal-kit": "^2.1.8"
   }
 }
