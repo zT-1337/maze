@@ -1,4 +1,4 @@
-import { Maze } from './maze/Maze'
+import { Maze } from './maze/maze'
 import terminal from 'terminal-kit'
 
 const term = terminal.terminal

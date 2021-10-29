@@ -1,5 +1,5 @@
 import { getRandomElementAndRemoveIt, getRandomInt } from '../util/Random'
-import { Cell } from './Cell'
+import { Cell } from './cell'
 
 export class Maze {
   width: number;
