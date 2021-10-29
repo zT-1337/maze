@@ -1,6 +1,6 @@
 import { Maze } from '../../../maze/maze'
 import $ from 'jquery'
-import { renderCell } from './maze.renderer'
+import { initRenderOfMaze, renderCell } from './maze.renderer'
 
 export function initInputs (maze: Maze) {
   $(document).on('keydown', (event) => {
@@ -21,6 +21,8 @@ export function initInputs (maze: Maze) {
         const [isSuccessfull, oldPosition, newPosition] = maze.movePlayerRight()
         handleMovePlayer(maze, isSuccessfull, oldPosition, newPosition)
         break
+      } case 'r': {
+        handleMazeRegeneration(maze)
       }
     }
   })
@@ -31,4 +33,20 @@ function handleMovePlayer (maze: Maze, isSuccessfull: boolean, oldPosition: numb
 
   renderCell(maze, oldPosition)
   renderCell(maze, newPosition)
+}
+
+function handleMazeRegeneration (maze: Maze) {
+  const algorithm = $('input[name=algorithm]:checked').val()
+
+  switch (algorithm) {
+    case 'prim': {
+      maze.generateMazeWithRandomPrim()
+      break
+    } case 'depthfirst': {
+      maze.generateMazeWithRandomDepthFirst()
+      break
+    }
+  }
+
+  initRenderOfMaze(maze)
 }

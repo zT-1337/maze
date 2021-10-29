@@ -16,4 +16,13 @@ export class Cell {
     this.hasPlayer = false
     this.position = position
   }
+
+  public reset () {
+    this.isVisited = false
+    this.hasTopWall = true
+    this.hasRightWall = true
+    this.hasBottomWall = true
+    this.hasLeftWall = true
+    this.hasPlayer = false
+  }
 }

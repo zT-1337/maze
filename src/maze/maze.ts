@@ -11,16 +11,27 @@ export class Maze {
     this.width = width
     this.height = height
     this.playerPosition = 0
-    this.cells = new Array<Cell>(width * height)
+    this.cells = new Array<Cell>(this.width * this.height)
 
-    for (let i = 0; i < width * height; ++i) {
+    for (let i = 0; i < this.width * this.height; ++i) {
       this.cells[i] = new Cell(i)
     }
 
     this.cells[this.playerPosition].hasPlayer = true
   }
 
+  private resetMaze () {
+    for (const cell of this.cells) {
+      cell.reset()
+    }
+
+    this.playerPosition = 0
+    this.cells[this.playerPosition].hasPlayer = true
+  }
+
   public generateMazeWithRandomPrim (): void {
+    this.resetMaze()
+
     const notVisitedCells = [this.cells[Math.floor((this.width * this.height) / 2)]]
 
     while (notVisitedCells.length > 0) {
@@ -39,26 +50,25 @@ export class Maze {
     }
   }
 
-  private getNeighbours (currentPosition: number): Cell[] {
-    const neighbours: Cell[] = []
+  public generateMazeWithRandomDepthFirst (): void {
+    this.resetMaze()
+    const backtrackingCells = [this.cells[Math.floor((this.width * this.height) / 2)]]
 
-    if (this.hasTopNeighbour(currentPosition)) {
-      neighbours.push(this.cells[currentPosition - this.width])
+    while (backtrackingCells.length > 0) {
+      const currentCell = backtrackingCells[backtrackingCells.length - 1]
+      currentCell.isVisited = true
+
+      const notVisitedNeighbours = this.getNeighboursByVisited(currentCell.position, false)
+
+      if (notVisitedNeighbours.length === 0) {
+        backtrackingCells.pop()
+        continue
+      }
+
+      const randomNotVisitedNeighbour = notVisitedNeighbours[getRandomInt(0, notVisitedNeighbours.length)]
+      backtrackingCells.push(randomNotVisitedNeighbour)
+      this.connect(currentCell, randomNotVisitedNeighbour)
     }
-
-    if (this.hasBottomNeighbour(currentPosition)) {
-      neighbours.push(this.cells[currentPosition + this.width])
-    }
-
-    if (this.hasLeftNeighbour(currentPosition)) {
-      neighbours.push(this.cells[currentPosition - 1])
-    }
-
-    if (this.hasRightNeighbour(currentPosition)) {
-      neighbours.push(this.cells[currentPosition + 1])
-    }
-
-    return neighbours
   }
 
   private getNeighboursByVisited (currentPosition: number, visited: boolean): Cell[] {
