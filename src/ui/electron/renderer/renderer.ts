@@ -83,12 +83,12 @@ function addLeftPath (cellElement: JQuery<HTMLElement>) {
 // eslint-disable-next-line no-undef
 function addTopPath (cellElement: JQuery<HTMLElement>) {
   const topPath = $('<div/>')
-    topPath.addClass('path')
-    topPath.css('top', '0')
-    topPath.css('left', `${cellRenderWidthInPx / 4}px`)
-    topPath.css('width', `${cellRenderWidthInPx / 2}px`)
-    topPath.css('height', `${cellRenderHeightInPx - cellRenderWidthInPx / 4}px`)
-    cellElement.append(topPath)
+  topPath.addClass('path')
+  topPath.css('top', '0')
+  topPath.css('left', `${cellRenderWidthInPx / 4}px`)
+  topPath.css('width', `${cellRenderWidthInPx / 2}px`)
+  topPath.css('height', `${cellRenderHeightInPx - cellRenderWidthInPx / 4}px`)
+  cellElement.append(topPath)
 }
 
 // eslint-disable-next-line no-undef
