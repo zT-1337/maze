@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "build": "tsc",
-    "start": "npm run build && node ./build/index.js",
-    "electron": "npm run build && mkdir -p ./build/ui/electron/public/ && cp ./src/ui/electron/public/* ./build/ui/electron/public/ && electron ./build/index.js",
+    "buildTerminal": "tsc",
+    "startTerminal": "npm run buildTerminal && node ./build/ui/terminal/main.js",
+    "buildElectron": "webpack --config webpack/main.config.js && webpack --config webpack/renderer.config.js",
     "lint": "eslint --ext .ts --fix src/"
   },
   "devDependencies": {
@@ -14,7 +14,10 @@
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.1",
-    "typescript": "^4.4.4"
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.4.4",
+    "webpack": "^5.60.0",
+    "webpack-cli": "^4.9.1"
   },
   "dependencies": {
     "@types/node": "^16.11.6",

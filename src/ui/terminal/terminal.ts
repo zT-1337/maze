@@ -1,4 +1,4 @@
-import { Maze } from '../maze/maze'
+import { Maze } from '../../maze/maze'
 import terminal from 'terminal-kit'
 
 export function start (maze: Maze) {
