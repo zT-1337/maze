@@ -2,11 +2,13 @@
   "scripts": {
     "build": "tsc",
     "start": "npm run build && node ./build/index.js",
+    "electron": "npm run build && mkdir -p ./build/ui/electron/public/ && cp ./src/ui/electron/public/* ./build/ui/electron/public/ && electron ./build/index.js",
     "lint": "eslint --ext .ts --fix src/"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.2.0",
     "@typescript-eslint/parser": "^5.2.0",
+    "electron": "^15.3.0",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.2",
