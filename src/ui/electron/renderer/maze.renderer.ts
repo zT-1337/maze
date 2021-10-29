@@ -6,6 +6,7 @@ const cellRenderHeightInPx = 32
 
 export function initRenderOfMaze (maze: Maze) {
   const mazeContainer = $('#maze')
+  mazeContainer.empty()
   mazeContainer.css('grid-template-columns', `repeat(${maze.width}, auto)`)
   mazeContainer.css('width', `${maze.width * cellRenderWidthInPx}px`)
   mazeContainer.css('height', `${maze.height * cellRenderHeightInPx}px`)
