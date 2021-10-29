@@ -4,6 +4,7 @@ module.exports = {
   mode: 'development',
   entry: './src/ui/electron/renderer/renderer.ts',
   target: 'electron-renderer',
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -19,6 +20,6 @@ module.exports = {
   },
   output: {
     filename: 'renderer.js',
-    path: path.resolve(__dirname, '../build')
+    path: path.resolve(__dirname, '../build/electron')
   }
 }

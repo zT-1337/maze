@@ -1,8 +1,9 @@
 {
   "scripts": {
-    "buildTerminal": "tsc",
-    "startTerminal": "npm run buildTerminal && node ./build/ui/terminal/main.js",
-    "buildElectron": "webpack --config webpack/main.config.js && webpack --config webpack/renderer.config.js",
+    "buildTerminal": "tsc --outDir build/terminal",
+    "startTerminal": "npm run buildTerminal && node ./build/terminal/ui/terminal/main.js",
+    "buildElectron": "webpack --config webpack/main.config.js && webpack --config webpack/preload.config.js && webpack --config webpack/renderer.config.js && mkdir -p build/electron/public && cp src/ui/electron/renderer/public/* build/electron/public",
+    "startElectron": "npm run buildElectron && electron build/electron/main.js",
     "lint": "eslint --ext .ts --fix src/"
   },
   "devDependencies": {

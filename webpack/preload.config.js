@@ -2,8 +2,8 @@ const path = require('path')
 
 module.exports = {
   mode: 'development',
-  entry: './src/ui/electron/main/main.ts',
-  target: 'electron-main',
+  entry: './src/ui/electron/main/preload.ts',
+  target: 'electron-preload',
   devtool: 'source-map',
   module: {
     rules: [
@@ -18,7 +18,7 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js']
   },
   output: {
-    filename: 'main.js',
+    filename: 'preload.js',
     path: path.resolve(__dirname, '../build/electron')
   }
 }
