@@ -29,25 +29,43 @@ export class Maze {
     this.cells[this.playerPosition].hasPlayer = true
   }
 
-  public generateMazeWithRandomPrim (): void {
+  public generateMazeWithRandomPrim (): Cell[][] {
     this.resetMaze()
 
+    const previousStates: Cell[][] = []
     const notVisitedCells = [this.cells[Math.floor((this.width * this.height) / 2)]]
+    notVisitedCells[0].visualizationModeColor = 'blue'
+    previousStates.push(this.copyCells())
 
     while (notVisitedCells.length > 0) {
       const currentCell = getRandomElementAndRemoveIt(notVisitedCells)
       currentCell.isVisited = true
+      currentCell.visualizationModeColor = 'yellow'
 
       for (const cell of this.getNeighboursByVisited(currentCell.position, false)) {
+        cell.visualizationModeColor = 'blue'
         notVisitedCells.push(cell)
       }
+
+      previousStates.push(this.copyCells())
 
       const neighbours = this.getNeighboursByVisited(currentCell.position, true)
       if (neighbours.length === 0) continue
 
       const randomNeighbour = neighbours[getRandomInt(0, neighbours.length)]
+      randomNeighbour.visualizationModeColor = 'orange'
       this.connect(currentCell, randomNeighbour)
+      previousStates.push(this.copyCells())
+      randomNeighbour.visualizationModeColor = undefined
+      currentCell.visualizationModeColor = undefined
+      previousStates.push(this.copyCells())
     }
+
+    return previousStates
+  }
+
+  private copyCells (): Cell[] {
+    return this.cells.map(cell => Object.assign(new Cell(cell.position), cell))
   }
 
   public generateMazeWithRandomDepthFirst (): void {
