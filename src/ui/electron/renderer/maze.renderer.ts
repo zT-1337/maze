@@ -127,16 +127,15 @@ function addVisualMode (cellElement: JQuery<HTMLElement>, color: string | undefi
     visualMode.text(text)
   }
 
-  visualMode.css('top', `${cellRenderWidthInPx / 4}px`)
-  visualMode.css('left', `${cellRenderHeightInPx / 4}px`)
-  visualMode.css('width', `${cellRenderWidthInPx / 2}px`)
-  visualMode.css('height', `${cellRenderHeightInPx / 2}px`)
+  visualMode.css('width', `${cellRenderWidthInPx}px`)
+  visualMode.css('height', `${cellRenderHeightInPx}px`)
   cellElement.append(visualMode)
 }
 
-export function initVisualMode (visualMaze: VisualMaze, maze: Maze) {
+export function initVisualMode (maze: Maze, visualMaze: VisualMaze) {
   $('input[name="visualModeCheckbox"]').on('change', function () {
     if ((this as HTMLInputElement).checked) {
+      visualMaze.reset()
       renderCells(visualMaze.current(), visualMaze.width, visualMaze.height)
     } else {
       renderMaze(maze)

@@ -31,6 +31,10 @@ export class VisualMaze {
     return false
   }
 
+  public reset () {
+    this.index = 0
+  }
+
   public current (): Cell[] {
     return this.states[this.index]
   }
