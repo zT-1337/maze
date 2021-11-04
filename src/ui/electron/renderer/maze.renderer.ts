@@ -1,6 +1,7 @@
 import { Maze } from '../../../maze/maze'
 import $ from 'jquery'
 import { Cell } from '../../../maze/cell'
+import { VisualMaze } from '../../../maze/visual.maze'
 
 const cellRenderWidthInPx = 32
 const cellRenderHeightInPx = 32
@@ -32,6 +33,7 @@ export function renderCells (cells: Cell[], width: number, height: number) {
 export function renderCell (cell: Cell) {
   const cellElement = $(`#cell-${cell.position}`)
   cellElement.empty()
+  const isVisualModeOn = $('input[name="visualModeCheckbox"]').prop('checked')
 
   if (!cell.hasTopWall) {
     addTopPath(cellElement)
@@ -49,8 +51,12 @@ export function renderCell (cell: Cell) {
     addRightPath(cellElement)
   }
 
-  if (cell.hasPlayer) {
+  if (cell.hasPlayer && !isVisualModeOn) {
     addPlayer(cellElement)
+  }
+
+  if (isVisualModeOn) {
+    addVisualMode(cellElement, cell.visualizationModeColor, cell.visualizationModeText)
   }
 }
 
@@ -107,4 +113,33 @@ function addPlayer (cellElement: JQuery<HTMLElement>) {
   player.css('width', `${cellRenderWidthInPx / 2}px`)
   player.css('height', `${cellRenderHeightInPx / 2}px`)
   cellElement.append(player)
+}
+
+// eslint-disable-next-line no-undef
+function addVisualMode(cellElement: JQuery<HTMLElement>, color: string | undefined, text: string | undefined) {
+  const visualMode = $('<div/>')
+
+  if (color !== undefined) {
+    visualMode.css('backgroundColor', color)
+  }
+
+  if (text !== undefined) {
+    visualMode.text(text)
+  }
+
+  visualMode.css('top', `${cellRenderWidthInPx / 4}px`)
+  visualMode.css('left', `${cellRenderHeightInPx / 4}px`)
+  visualMode.css('width', `${cellRenderWidthInPx / 2}px`)
+  visualMode.css('height', `${cellRenderHeightInPx / 2}px`)
+  cellElement.append(visualMode)
+}
+
+export function initVisualMode (visualMaze: VisualMaze, maze: Maze) {
+  $('input[name="visualModeCheckbox"]').on('change', function () {
+    if ((this as HTMLInputElement).checked) {
+      renderCells(visualMaze.current(), visualMaze.width, visualMaze.height)
+    } else {
+      renderMaze(maze)
+    }
+  })
 }

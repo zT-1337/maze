@@ -1,5 +1,6 @@
 import { getRandomElementAndRemoveIt, getRandomInt } from '../util/Random'
 import { Cell } from './cell'
+import { VisualMaze } from './visual.maze'
 
 export class Maze {
   width: number;
@@ -29,11 +30,11 @@ export class Maze {
     this.cells[this.playerPosition].hasPlayer = true
   }
 
-  public generateMazeWithRandomPrim (): Cell[][] {
+  public generateMazeWithRandomPrim (): VisualMaze {
     this.resetMaze()
 
     const previousStates: Cell[][] = []
-    const notVisitedCells = [this.cells[Math.floor((this.width * this.height) / 2)]]
+    const notVisitedCells = [this.cells[Math.floor((this.width * this.height) / 2 - this.width / 2)]]
     notVisitedCells[0].visualizationModeColor = 'blue'
     previousStates.push(this.copyCells())
 
@@ -61,7 +62,7 @@ export class Maze {
       previousStates.push(this.copyCells())
     }
 
-    return previousStates
+    return new VisualMaze(previousStates, this.width, this.height)
   }
 
   private copyCells (): Cell[] {
