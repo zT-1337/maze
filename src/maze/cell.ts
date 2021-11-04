@@ -7,6 +7,9 @@ export class Cell {
   position: number;
   hasPlayer: boolean;
 
+  visualizationModeColor: string | undefined;
+  visualizationModeText: string | undefined;
+
   constructor (position: number) {
     this.isVisited = false
     this.hasTopWall = true
@@ -24,5 +27,8 @@ export class Cell {
     this.hasBottomWall = true
     this.hasLeftWall = true
     this.hasPlayer = false
+
+    this.visualizationModeColor = undefined
+    this.visualizationModeText = undefined
   }
 }
