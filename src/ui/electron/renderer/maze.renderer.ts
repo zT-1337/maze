@@ -116,7 +116,7 @@ function addPlayer (cellElement: JQuery<HTMLElement>) {
 }
 
 // eslint-disable-next-line no-undef
-function addVisualMode(cellElement: JQuery<HTMLElement>, color: string | undefined, text: string | undefined) {
+function addVisualMode (cellElement: JQuery<HTMLElement>, color: string | undefined, text: string | undefined) {
   const visualMode = $('<div/>')
 
   if (color !== undefined) {
