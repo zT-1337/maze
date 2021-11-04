@@ -118,18 +118,27 @@ function addPlayer (cellElement: JQuery<HTMLElement>) {
 // eslint-disable-next-line no-undef
 function addVisualMode (cellElement: JQuery<HTMLElement>, color: string | undefined, text: string | undefined) {
   const visualMode = $('<div/>')
+  const visualModeText = $('<div/>')
 
   if (color !== undefined) {
     visualMode.css('backgroundColor', color)
   }
 
   if (text !== undefined) {
-    visualMode.text(text)
+    visualModeText.text(text)
   }
 
+  visualMode.addClass('visualMode')
   visualMode.css('width', `${cellRenderWidthInPx}px`)
   visualMode.css('height', `${cellRenderHeightInPx}px`)
+
+  visualModeText.addClass('visualMode')
+  visualModeText.addClass('visualModeText')
+  visualModeText.css('width', `${cellRenderWidthInPx}px`)
+  visualModeText.css('height', `${cellRenderHeightInPx}px`)
+
   cellElement.append(visualMode)
+  cellElement.append(visualModeText)
 }
 
 export function initVisualMode (maze: Maze, visualMaze: VisualMaze) {

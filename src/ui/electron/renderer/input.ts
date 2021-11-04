@@ -64,7 +64,7 @@ function handleMazeRegeneration (maze: Maze, visualMaze: VisualMaze) {
       Object.assign(visualMaze, maze.generateMazeWithRandomPrim())
       break
     } case 'depthfirst': {
-      maze.generateMazeWithRandomDepthFirst()
+      Object.assign(visualMaze, maze.generateMazeWithRandomDepthFirst())
       break
     }
   }

@@ -10,9 +10,27 @@
 .path {
   background-color: green;
   position: absolute;
+  z-index: 100;
+}
+
+.visualMode {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.visualModeText {
+  z-index: 1000;
+  align-items: center;
+  font-weight: bold;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .player {
   position: absolute;
   background-color: red;
+  z-index: 10000;
 }

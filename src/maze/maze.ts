@@ -72,9 +72,14 @@ export class Maze {
     return this.cells.map(cell => Object.assign(new Cell(cell.position), cell))
   }
 
-  public generateMazeWithRandomDepthFirst (): void {
+  public generateMazeWithRandomDepthFirst (): VisualMaze {
     this.resetMaze()
-    const backtrackingCells = [this.cells[Math.floor((this.width * this.height) / 2)]]
+
+    const previousStates: Cell[][] = []
+    const backtrackingCells = [this.cells[Math.floor((this.width * this.height) / 2 - this.width / 2)]]
+    backtrackingCells[0].visualizationModeColor = 'yellow'
+    backtrackingCells[0].visualizationModeText = '0'
+    previousStates.push(this.copyCells())
 
     while (backtrackingCells.length > 0) {
       const currentCell = backtrackingCells[backtrackingCells.length - 1]
@@ -84,13 +89,30 @@ export class Maze {
 
       if (notVisitedNeighbours.length === 0) {
         backtrackingCells.pop()
+        currentCell.visualizationModeColor = undefined
+        currentCell.visualizationModeText = undefined
+        if (backtrackingCells[backtrackingCells.length - 1] !== undefined) {
+          backtrackingCells[backtrackingCells.length - 1].visualizationModeColor = 'yellow'
+        }
+
+        previousStates.push(this.copyCells())
         continue
       }
 
       const randomNotVisitedNeighbour = notVisitedNeighbours[getRandomInt(0, notVisitedNeighbours.length)]
-      backtrackingCells.push(randomNotVisitedNeighbour)
+      randomNotVisitedNeighbour.visualizationModeColor = 'orange'
+      previousStates.push(this.copyCells())
       this.connect(currentCell, randomNotVisitedNeighbour)
+      previousStates.push(this.copyCells())
+
+      backtrackingCells.push(randomNotVisitedNeighbour)
+      randomNotVisitedNeighbour.visualizationModeText = (backtrackingCells.length - 1).toString()
+      randomNotVisitedNeighbour.visualizationModeColor = 'yellow'
+      currentCell.visualizationModeColor = 'blue'
+      previousStates.push(this.copyCells())
     }
+
+    return new VisualMaze(previousStates, this.width, this.height)
   }
 
   private getNeighboursByVisited (currentPosition: number, visited: boolean): Cell[] {
