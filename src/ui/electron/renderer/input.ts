@@ -1,6 +1,6 @@
 import { Maze } from '../../../maze/maze'
 import $ from 'jquery'
-import { initRenderOfMaze, renderCell } from './maze.renderer'
+import { renderMaze, renderCell } from './maze.renderer'
 
 export function initInputs (maze: Maze) {
   $(document).on('keydown', (event) => {
@@ -31,8 +31,8 @@ export function initInputs (maze: Maze) {
 function handleMovePlayer (maze: Maze, isSuccessfull: boolean, oldPosition: number, newPosition: number) {
   if (!isSuccessfull) return
 
-  renderCell(maze, oldPosition)
-  renderCell(maze, newPosition)
+  renderCell(maze.cells[oldPosition])
+  renderCell(maze.cells[newPosition])
 }
 
 function handleMazeRegeneration (maze: Maze) {
@@ -48,5 +48,5 @@ function handleMazeRegeneration (maze: Maze) {
     }
   }
 
-  initRenderOfMaze(maze)
+  renderMaze(maze)
 }

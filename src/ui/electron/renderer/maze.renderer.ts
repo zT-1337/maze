@@ -1,17 +1,22 @@
 import { Maze } from '../../../maze/maze'
 import $ from 'jquery'
+import { Cell } from '../../../maze/cell'
 
 const cellRenderWidthInPx = 32
 const cellRenderHeightInPx = 32
 
-export function initRenderOfMaze (maze: Maze) {
+export function renderMaze (maze: Maze) {
+  renderCells(maze.cells, maze.width, maze.height)
+}
+
+export function renderCells (cells: Cell[], width: number, height: number) {
   const mazeContainer = $('#maze')
   mazeContainer.empty()
-  mazeContainer.css('grid-template-columns', `repeat(${maze.width}, auto)`)
-  mazeContainer.css('width', `${maze.width * cellRenderWidthInPx}px`)
-  mazeContainer.css('height', `${maze.height * cellRenderHeightInPx}px`)
+  mazeContainer.css('grid-template-columns', `repeat(${width}, auto)`)
+  mazeContainer.css('width', `${width * cellRenderWidthInPx}px`)
+  mazeContainer.css('height', `${height * cellRenderHeightInPx}px`)
 
-  for (const cell of maze.cells) {
+  for (const cell of cells) {
     const cellElement = $('<div/>')
     cellElement.prop('id', `cell-${cell.position}`)
     cellElement.css('width', `${cellRenderWidthInPx}px`)
@@ -20,13 +25,12 @@ export function initRenderOfMaze (maze: Maze) {
 
     mazeContainer.append(cellElement)
 
-    renderCell(maze, cell.position)
+    renderCell(cell)
   }
 }
 
-export function renderCell (maze: Maze, position: number) {
-  const cell = maze.cells[position]
-  const cellElement = $(`#cell-${position}`)
+export function renderCell (cell: Cell) {
+  const cellElement = $(`#cell-${cell.position}`)
   cellElement.empty()
 
   if (!cell.hasTopWall) {
