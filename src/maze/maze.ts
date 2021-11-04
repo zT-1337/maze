@@ -44,6 +44,9 @@ export class Maze {
       currentCell.visualizationModeColor = 'yellow'
 
       for (const cell of this.getNeighboursByVisited(currentCell.position, false)) {
+        if (cell.isAddedNeighbour) continue
+
+        cell.isAddedNeighbour = true
         cell.visualizationModeColor = 'blue'
         notVisitedCells.push(cell)
       }

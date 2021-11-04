@@ -1,5 +1,6 @@
 export class Cell {
   isVisited: boolean;
+  isAddedNeighbour: boolean;
   hasTopWall: boolean;
   hasRightWall: boolean;
   hasBottomWall: boolean;
@@ -12,6 +13,7 @@ export class Cell {
 
   constructor (position: number) {
     this.isVisited = false
+    this.isAddedNeighbour = false
     this.hasTopWall = true
     this.hasRightWall = true
     this.hasBottomWall = true
@@ -22,6 +24,7 @@ export class Cell {
 
   public reset () {
     this.isVisited = false
+    this.isAddedNeighbour = false
     this.hasTopWall = true
     this.hasRightWall = true
     this.hasBottomWall = true
